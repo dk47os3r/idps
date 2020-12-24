@@ -3,6 +3,12 @@
 # Date     : DEC 22, 2020
 # License  : GPLv3 (Open Source)
 
+# for self-sign cert rule
+cd /tmp
+git clone https://github.com/StamusNetworks/stamus-luajit-scripts.git
+#sudo cp stamus-luajit-scripts/*.lua /etc/suricata/rules/
+sudo cp stamus-luajit-scripts/*.lua /var/lib/suricata/rules/
+
 # set up 3rd party ip blocking list
 #
 # talosintel
