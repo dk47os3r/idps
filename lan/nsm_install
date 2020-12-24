@@ -1357,7 +1357,6 @@ reputation-categories-file: /etc/suricata/iprep_categories
 default-reputation-path: /var/lib/suricata/rules/iprep
 reputation-files:
 # - reputation.list
- - ip-filter.blacklist
  - zeustracker.blacklist
  - blocklist.de.blacklist
  - ip-finder.blacklist
@@ -2871,7 +2870,6 @@ sudo /root/irc-bot_install
 #############
 # create logs
 #############
-sudo touch /var/log/suricata/bad_urls.log
 sudo touch /var/log/suricata/ransomware_urls.log
 sudo touch /var/log/suricata/malicious_urls.log
 
