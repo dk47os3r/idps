@@ -152,11 +152,6 @@ def connect():
           os.system("sudo /etc/croissants/conf.d/auto_config")
           irc.send(bytes(str("PRIVMSG " + channel + " :" + "Auto Config is done!\n"), "UTF-8"))
 
-     # help
-      if text.find( "HELP" ) != -1:
-        if nick in administrators:
-          irc.send(bytes(str("PRIVMSG " + channel + " :" + "HELP HELLO PING CHECK_VERSION CHECK_AUTOUPDATE CHECK_SURICATA.LOG UBUNTU_UPDATE RULES_UPDATE AUTO_UPDATE SURICATA_RESTART DELETE_AUTOUPDATE REPLACE_AUTOUPDATE IRCBOT_RESTART AUTO_CONFIG\n"), "UTF-8"))
-
   except KeyboardInterrupt:
     irc.send(bytes(str("QUIT :I have to go for now!\n"), "UTF-8"))
     print ("\n")
