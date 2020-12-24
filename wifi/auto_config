@@ -1120,7 +1120,6 @@ reputation-categories-file: /etc/suricata/iprep_categories
 default-reputation-path: /var/lib/suricata/rules/iprep
 reputation-files:
 # - reputation.list
- - ip-filter.blacklist
  - zeustracker.blacklist
  - blocklist.de.blacklist
  - ip-finder.blacklist
@@ -1922,17 +1921,14 @@ network:
       dhcp4: false
       dhcp6: false
       optional: true
-  wifis:
     $INF_MONITORING:
       dhcp4: false
       optional: true
-      addresses: [$INF_MONITORING_IP/$INF_NETMASK]
+      addresses:
+        - [$INF_MONITORING_IP/$INF_NETMASK]
       gateway4: $INF_GATEWAY
       nameservers:
         addresses: [$INF_NAMESERVER]
-      access-points:
-        $WIFI_SSID:
-          password: $WIFI_PASSWORD
 END
 
 # restart suricata

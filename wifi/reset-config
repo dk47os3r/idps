@@ -20,15 +20,15 @@ network:
       dhcp4: false
       dhcp6: false
       optional: true
+      addresses:
+        - {}
     $INF_OUTGOING:
       dhcp4: false
       dhcp6: false
       optional: true
-  wifis:
+      addresses:
+        - {}
     $INF_MONITORING:
-      dhcp4: false
+      dhcp4: true
       optional: true
-      access-points:
-        $WIFI_SSID:
-          password: $WIFI_PASSWORD
 END

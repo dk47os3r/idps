@@ -11,7 +11,7 @@
 # Website     : https://samiux.github.io
 # Blog        : https://samiux.blogspot.com
 # Date        : DEC 23, 2020
-# Version     : 0.18
+# Version     : 0.19
 # License     : GPLv3 (Open Source)
 # Remarks     : This script is only for 16GB or more RAM system
 
@@ -1357,7 +1357,6 @@ reputation-categories-file: /etc/suricata/iprep_categories
 default-reputation-path: /var/lib/suricata/rules/iprep
 reputation-files:
 # - reputation.list
- - ip-filter.blacklist
  - zeustracker.blacklist
  - blocklist.de.blacklist
  - ip-finder.blacklist
@@ -2710,17 +2709,14 @@ network:
       dhcp4: false
       dhcp6: false
       optional: true
-  wifis:
     $INF_MONITORING:
       dhcp4: false
       optional: true
-      addresses: [$INF_MONITORING_IP/$INF_NETMASK]
+      addresses:
+        - [$INF_MONITORING_IP/$INF_NETMASK]
       gateway4: $INF_GATEWAY
       nameservers:
         addresses: [$INF_NAMESERVER]
-      access-points:
-        $WIFI_SSID:
-          password: $WIFI_PASSWORD
 END
 
 ###############
@@ -2874,7 +2870,6 @@ sudo /root/irc-bot_install
 #############
 # create logs
 #############
-sudo touch /var/log/suricata/bad_urls.log
 sudo touch /var/log/suricata/ransomware_urls.log
 sudo touch /var/log/suricata/malicious_urls.log
 
@@ -2911,6 +2906,7 @@ sudo rm /root/nsm_install
 sudo rm /root/ids_to_ips
 sudo rm /root/irc-bot_install
 sudo rm /root/*.tar.gz
+sudo rm /root/idps.rules
 sudo rm -R /root/rules
 sudo rm -R /root/lua
 sudo rm -R /root/wifi
