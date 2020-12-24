@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Location : /usr/lib/networkd-dispatcher/routable.d/10-disable-offloading
+# Author   : Samiux (https://samiux.github.io)
+# Date     : DEC 22, 2020
+# License  : GPLv3 (Open Source)
+
+# load the configuration
+. /etc/croissants/conf.d/nsm.conf
+
+# bring interfaces up
+ip link set $INF_INCOMING up
+ip link set $INF_OUTGOING up
+# disable offloading
+ethtool --offload $INF_INCOMING sg off gro off lro off tso off gso off ntuple off rxhash off rx off tx off
+ethtool --offload $INF_OUTGOING sg off gro off lro off tso off gso off ntuple off rxhash off rx off tx off
+
+
+
+
