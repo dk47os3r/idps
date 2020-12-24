@@ -36,7 +36,7 @@ network:
         - [$INF_MONITORING_IP/$INF_NETMASK]
       gateway4: $INF_GATEWAY
       nameservers:
-        addresses: [$INF_GATEWAY, $INF_NAMESERVER]
+        addresses: [$INF_NAMESERVER]
 END
 
 # apply netplan

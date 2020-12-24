@@ -2706,14 +2706,10 @@ network:
       dhcp4: false
       dhcp6: false
       optional: true
-      addresses:
-        - {}
     $INF_OUTGOING:
       dhcp4: false
       dhcp6: false
       optional: true
-      addresses:
-        - {}
     $INF_MONITORING:
       dhcp4: false
       optional: true
@@ -2721,7 +2717,7 @@ network:
         - [$INF_MONITORING_IP/$INF_NETMASK]
       gateway4: $INF_GATEWAY
       nameservers:
-        addresses: [$INF_GATEWAY, $INF_NAMESERVER]
+        addresses: [$INF_NAMESERVER]
 END
 
 ###############
@@ -2855,6 +2851,14 @@ sudo chmod +x /usr/bin/nsm_rules_reload
 sudo chmod +x /usr/bin/nsm_cleanlogs
 sudo chmod +x /etc/network/flush-ip
 sudo chmod +x /usr/lib/networkd-dispatcher/routable.d/10-disable-offloading
+
+sudo mv *.rules /var/lib/suricata/rules
+sudo mv malware* /var/lib/suricata/rules
+sudo mv *.lua /var/lib/suricata/rules
+sudo mv *.url /var/lib/suricata/rules
+sudo mv *.blacklist /var/lib/suricata/rules/iprep/
+sudo mv reset-config /etc/croissants/conf.d/
+sudo chmod +x /etc/croissants/conf.d/reset-config
 
 #################
 # install irc-bot
