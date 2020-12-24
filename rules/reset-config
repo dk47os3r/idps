@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Author    : Samiux (https://samiux.github.io)
+# Date      : DEC 22, 2020
+# License   : GPLv3 (Open Source)
+
+# load nsm.conf
+. /etc/croissants/conf.d/nsm.conf
+
+sudo mv /etc/netplan/01-suricata-afpacket.yaml /etc/netplan/01-suricata-afpacket.yaml-backup
+sudo touch /etc/netplan/01-suricata-afpacket.yaml
+
+sudo cat >>/etc/netplan/01-suricata-afpacket.yaml <<END
+# For Suricata af-packet high speed capture support
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    $INF_INCOMING:
+      dhcp4: false
+      dhcp6: false
+      optional: true
+      addresses:
+        - {}
+    $INF_OUTGOING:
+      dhcp4: false
+      dhcp6: false
+      optional: true
+      addresses:
+        - {}
+    $INF_MONITORING:
+      dhcp4: true
+      optional: true
+END
