@@ -26,7 +26,7 @@ network:
       optional: true
   wifis:
     $INF_MONITORING:
-      dhcp4: false
+      dhcp4: true
       optional: true
       access-points:
         $WIFI_SSID:
