@@ -100,8 +100,8 @@ cp lan/* /root
 ```bash
 cd /root/idps
 
-cp -R lua/* /root
-cp -R rules/* /root
+cp -R lua/ /root
+cp -R rules/ /root
 
 cd /root
 
