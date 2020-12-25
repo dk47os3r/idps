@@ -32,8 +32,7 @@ network:
     $INF_MONITORING:
       dhcp4: true
       optional: true
-      addresses:
-        - [$INF_MONITORING_IP/$INF_NETMASK]
+      addresses: [$INF_MONITORING_IP/$INF_NETMASK]
       gateway4: $INF_GATEWAY
       nameservers:
         addresses: [$INF_NAMESERVER]
