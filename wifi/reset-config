@@ -20,14 +20,10 @@ network:
       dhcp4: false
       dhcp6: false
       optional: true
-      addresses:
-        - {}
     $INF_OUTGOING:
       dhcp4: false
       dhcp6: false
       optional: true
-      addresses:
-        - {}
     $INF_MONITORING:
       dhcp4: true
       optional: true
