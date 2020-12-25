@@ -24,7 +24,11 @@ network:
       dhcp4: false
       dhcp6: false
       optional: true
+  wifis:
     $INF_MONITORING:
-      dhcp4: true
+      dhcp4: false
       optional: true
+      access-points:
+        $WIFI_SSID:
+          password: $WIFI_PASSWORD
 END
