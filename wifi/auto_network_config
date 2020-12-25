@@ -31,7 +31,7 @@ network:
       addresses: [$INF_MONITORING_IP/$INF_NETMASK]
       gateway4: $INF_GATEWAY
       nameservers:
-      addresses: [$INF_NAMESERVER]
+        addresses: [$INF_NAMESERVER]
       access-points:
         $WIFI_SSID:
           password: $WIFI_PASSWORD
