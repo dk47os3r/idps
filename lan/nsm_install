@@ -2761,6 +2761,8 @@ echo never > /sys/kernel/mm/transparent_hugepage/enabled
 exit 0
 END
 
+sudo chmod +x /etc/rc.local
+
 #################
 # create flush-ip
 #################
