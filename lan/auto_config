@@ -1884,7 +1884,10 @@ rule-files:
   - idps.rules
   - scanners.rules
   - local.rules
-
+  - ja3_fingerprints.rules
+  - sslipblacklist.rules
+  - sslblacklist_tls_cert.rules
+  
 ##
 ## Auxiliary configuration files.
 ##
