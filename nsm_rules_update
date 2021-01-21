@@ -11,16 +11,6 @@ sudo cp stamus-luajit-scripts/*.lua /var/lib/suricata/rules/
 
 # set up 3rd party ip blocking list
 #
-# talosintel
-#
-cd /tmp
-wget http://talosintel.com/feeds/ip-filter.blf -O /tmp/ip-filter.blf
-if [ -s /tmp/ip-filter.blf ]
-then
-	cat /tmp/ip-filter.blf | sort -u | sed -e 's/$/,1,10/' > /var/lib/suricata/rules/iprep/ip-filter.blacklist
-fi
-
-#
 # zeustracker.abuse.ch
 #
 cd /tmp
@@ -146,6 +136,52 @@ wget https://github.com/samiux/update-croissants/raw/master/rules/malware_sha256
 if [ -s /tmp/malware_sha256 ]
 then
   sudo cp /tmp/malware_sha256 /var/lib/suricata/rules/
+fi
+
+#
+# sslbl.abuse.ch blacklist
+#
+cd /tmp
+wget https://sslbl.abuse.ch/blacklist/ja3_fingerprints.rules -O /tmp/ja3_fingerprints.rules
+if [ -s /tmp/ja3_fingerprints.rules ]
+then
+  sudo sed -i 's/alert/reject/' /tmp/ja3_fingerprints.rules
+  sudo cp /tmp/ja3_fingerprints.rules /var/lib/suricata/rules/
+fi
+
+wget https://sslbl.abuse.ch/blacklist/sslipblacklist.rules -O /tmp/sslipblacklist.rules
+if [ -s /tmp/sslipblacklist.rules ]
+then
+  sudo sed -i 's/alert/reject/' /tmp/sslipblacklist.rules
+  sudo cp /tmp/sslipblacklist.rules /var/lib/suricata/rules/
+fi
+
+wget https://sslbl.abuse.ch/blacklist/sslblacklist_tls_cert.rules -O /tmp/sslblacklist_tls_cert.rules
+if [ -s /tmp/sslblacklist_tls_cert.rules ]
+then
+  sudo sed -i 's/alert/reject/' /tmp/sslblacklist_tls_cert.rules
+  sudo cp /tmp/sslblacklist_tls_cert.rules /var/lib/suricata/rules/
+fi
+
+#
+# Phishing Database
+#
+wget https://raw.githubusercontent.com/mitchellkrogza/Phishing.Database/master/phishing-links-ACTIVE.txt -O /tmp/phishing-links-ACTIVE.txt
+if [ -s /tmp/phishing-links-ACTIVE.txt ]
+then
+  sed -i 's/http:\/\///' /tmp/phishing-links-ACTIVE.txt
+  mv /tmp/phishing-links-ACTIVE.txt /tmp/phishing.url
+  sudo cp /tmp/phishing.url /var/lib/suricata/rules/
+fi
+
+#
+# Hacked Domains with Malware
+#
+wget https://raw.githubusercontent.com/mitchellkrogza/The-Big-List-of-Hacked-Malware-Web-Sites/master/hacked-domains.list -O /tmp/hacked-domains.list
+if [ -s /tmp/hacked-domains.list ]
+then
+  mv /tmp/hacked-domains.list /tmp/hacked-domains.url
+  sudo cp /tmp/hacked-domains.url /var/lib/suricata/rules/
 fi
 
 # cleaning up
