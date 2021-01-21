@@ -2122,7 +2122,10 @@ rule-files:
   - idps.rules
   - scanners.rules
   - local.rules
-
+  - ja3_fingerprints.rules
+  - sslipblacklist.rules
+  - sslblacklist_tls_cert.rules
+  
 ##
 ## Auxiliary configuration files.
 ##
@@ -2922,6 +2925,9 @@ sudo rm -R /root/lan
 sudo rm -R /root/idps
 sudo rm /root/*.config
 sudo rm /root/set-afpacket
+
+sudo chmod -x /var/log/suricata/*.log
+sudo chmod -x /var/log/suricata/*.json
 
 # apply netplan
 sudo netplan apply
