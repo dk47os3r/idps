@@ -1586,7 +1586,8 @@ stream:
   #prealloc-sessions: 2048
   prealloc-sessions: 4096
   async-oneside: false
-  bypass: no
+  #bypass: no
+  bypass: yes
   reassembly:
     #memcap: 256mb
     memcap: 4096mb
