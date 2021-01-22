@@ -1937,6 +1937,7 @@ END
 echo "Restarting Suricata ....."
 sudo systemctl restart suricata
 sudo chmod +r /var/log/suricata/eve.json
+sudo netplan apply
 echo
 echo "Auto configure done!"
 
