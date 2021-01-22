@@ -146,6 +146,8 @@ wget https://sslbl.abuse.ch/blacklist/ja3_fingerprints.rules -O /tmp/ja3_fingerp
 if [ -s /tmp/ja3_fingerprints.rules ]
 then
   sudo sed -i 's/alert/reject/' /tmp/ja3_fingerprints.rules
+  # disable Tencent SSL cert
+  sudo sed -i 's/.*906200038/#&/' /tmp/ja3_fingerprints.rules  
   sudo cp /tmp/ja3_fingerprints.rules /var/lib/suricata/rules/
 fi
 
