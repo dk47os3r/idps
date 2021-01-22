@@ -854,7 +854,8 @@ af-packet:
     cluster-type: cluster_flow
     # In some fragmentation case, the hash can not be computed. If "defrag" is set
     # to yes, the kernel will do the needed defragmentation before sending the packets.
-    defrag: no
+    defrag: yes
+    #defrag: no
     # To use the ring feature of AF_PACKET, set 'use-mmap' to yes
     #use-mmap: yes
     use-mmap: yes
@@ -909,16 +910,19 @@ af-packet:
     #  see doc/userguide/capture-hardware/ebpf-xdp.rst for more info.
     copy-mode: ips
     copy-iface: $INF_OUTGOING
-    buffer-size: 1497366528
+    #buffer-size: 1497366528
+    buffer-size: 32768
 
   - interface: $INF_OUTGOING
     #threads: auto
     cluster-id: 98
     cluster-type: cluster_flow
-    defrag: no
+    #defrag: no
+    defrag: yes
     copy-mode: ips
     copy-iface: $INF_INCOMING
-    buffer-size: 1497366528
+    #buffer-size: 1497366528
+    buffer-size: 32768
     use-mmap: yes
     ring-size: $RING_SIZE
     #mmap-locked: yes
@@ -1577,31 +1581,31 @@ flow-timeouts:
 #                               # is used in a rule.
 #
 stream:
-  #memcap: 64mb
-  memcap: 1024mb
+  memcap: 64mb
+  #memcap: 1024mb
   checksum-validation: yes      # reject wrong csums
   inline: auto                  # auto will use inline mode in IPS mode, yes or no set it statically
-  #max-synack-queued: 1000
-  max-synack-queued: 10000
-  #prealloc-sessions: 2048
-  prealloc-sessions: 4096
+  max-synack-queued: 1000
+  #max-synack-queued: 10000
+  prealloc-sessions: 2048
+  #prealloc-sessions: 4096
   async-oneside: false
   #bypass: no
   bypass: yes
   reassembly:
-    #memcap: 256mb
-    memcap: 4096mb
+    memcap: 256mb
+    #memcap: 4096mb
     depth: 1mb                  # reassemble 1mb into a stream
     toserver-chunk-size: 2560
     toclient-chunk-size: 2560
     randomize-chunk-size: yes
     randomize-chunk-range: 10
     #raw: yes
-    raw: yes
-    #segment-prealloc: 2048
-    segment-prealloc: 4096
+    #raw: yes
+    segment-prealloc: 2048
+    #segment-prealloc: 4096
     #check-overlap-different-data: true
-    check-overlap-different-data: true
+    #check-overlap-different-data: true
 
 
 # Host table:
