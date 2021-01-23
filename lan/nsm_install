@@ -11,7 +11,7 @@
 # Website     : https://samiux.github.io
 # Blog        : https://samiux.blogspot.com
 # Date        : DEC 23, 2020
-# Version     : 0.18
+# Version     : 0.19
 # License     : GPLv3 (Open Source)
 # Remarks     : This script is only for 16GB or more RAM system
 
@@ -2708,7 +2708,6 @@ network:
       dhcp4: false
       dhcp6: false
       optional: true
-  wifis:
     $INF_MONITORING:
       dhcp4: false
       optional: true
@@ -2716,9 +2715,6 @@ network:
       gateway4: $INF_GATEWAY
       nameservers:
         addresses: [$INF_NAMESERVER]
-      access-points:
-        $WIFI_SSID:
-          password: $WIFI_PASSWORD
 END
 
 ###############
@@ -2914,6 +2910,7 @@ sudo rm /root/nsm_install
 sudo rm /root/ids_to_ips
 sudo rm /root/irc-bot_install
 sudo rm /root/*.tar.gz
+sudo rm /root/idps.rules
 sudo rm -R /root/rules
 sudo rm -R /root/lua
 sudo rm -R /root/wifi
@@ -2921,9 +2918,6 @@ sudo rm -R /root/lan
 sudo rm -R /root/idps
 sudo rm /root/*.config
 sudo rm /root/set-afpacket
-
-sudo chmod -x /var/log/suricata/*.log
-sudo chmod -x /var/log/suricata/*.json
 
 # apply netplan
 sudo netplan apply

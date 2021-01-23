@@ -1920,7 +1920,6 @@ network:
       dhcp4: false
       dhcp6: false
       optional: true
-  wifis:
     $INF_MONITORING:
       dhcp4: false
       optional: true
@@ -1928,9 +1927,6 @@ network:
       gateway4: $INF_GATEWAY
       nameservers:
         addresses: [$INF_NAMESERVER]
-      access-points:
-        $WIFI_SSID:
-          password: $WIFI_PASSWORD
 END
 
 # restart suricata
