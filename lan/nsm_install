@@ -2919,6 +2919,9 @@ sudo rm -R /root/idps
 sudo rm /root/*.config
 sudo rm /root/set-afpacket
 
+sudo chmod -x /var/log/suricata/*.log
+sudo chmod -x /var/log/suricata/*.json
+
 # apply netplan
 sudo netplan apply
 
