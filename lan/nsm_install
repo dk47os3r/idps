@@ -911,7 +911,7 @@ af-packet:
     copy-mode: ips
     copy-iface: $INF_OUTGOING
     #buffer-size: 1497366528
-    buffer-size: 32768
+    buffer-size: 131072
 
   - interface: $INF_OUTGOING
     #threads: auto
@@ -922,7 +922,7 @@ af-packet:
     copy-mode: ips
     copy-iface: $INF_INCOMING
     #buffer-size: 1497366528
-    buffer-size: 32768
+    buffer-size: 131072
     use-mmap: yes
     ring-size: $RING_SIZE
     #mmap-locked: yes
@@ -1582,29 +1582,22 @@ flow-timeouts:
 #
 stream:
   memcap: 64mb
-  #memcap: 1024mb
   checksum-validation: yes      # reject wrong csums
   inline: auto                  # auto will use inline mode in IPS mode, yes or no set it statically
   max-synack-queued: 1000
-  #max-synack-queued: 10000
   prealloc-sessions: 2048
-  #prealloc-sessions: 4096
   async-oneside: false
   #bypass: no
   bypass: yes
   reassembly:
     memcap: 256mb
-    #memcap: 4096mb
     depth: 1mb                  # reassemble 1mb into a stream
     toserver-chunk-size: 2560
     toclient-chunk-size: 2560
     randomize-chunk-size: yes
     randomize-chunk-range: 10
     #raw: yes
-    #raw: yes
     segment-prealloc: 2048
-    #segment-prealloc: 4096
-    #check-overlap-different-data: true
     #check-overlap-different-data: true
 
 
