@@ -618,7 +618,6 @@ af-packet:
     # In some fragmentation case, the hash can not be computed. If "defrag" is set
     # to yes, the kernel will do the needed defragmentation before sending the packets.
     defrag: yes
-    #defrag: no
     # To use the ring feature of AF_PACKET, set 'use-mmap' to yes
     #use-mmap: yes
     use-mmap: yes
@@ -679,7 +678,6 @@ af-packet:
     #threads: auto
     cluster-id: 98
     cluster-type: cluster_flow
-    #defrag: no
     defrag: yes
     copy-mode: ips
     copy-iface: $INF_INCOMING
