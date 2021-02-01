@@ -872,10 +872,8 @@ app-layer:
 
            # Can be specified in kb, mb, gb.  Just a number indicates
            # it's in bytes.
-           #request-body-limit: 100kb
-           request-body-limit: 0
-           #response-body-limit: 100kb
-           response-body-limit: 0
+           request-body-limit: 100kb
+           response-body-limit: 100kb
 
            # inspection limits
            request-body-minimal-inspect-size: 32kb
@@ -996,8 +994,7 @@ app-layer:
       #enabled: no
 
 # Limit for the maximum number of asn1 frames to decode (default 256)
-#asn1-max-frames: 256
-asn1-max-frames: 1024
+asn1-max-frames: 256
 
 
 ##############################################################################
@@ -1211,11 +1208,9 @@ defrag:
 # in bytes.
 
 flow:
-  #memcap: 128mb
-  memcap: 1024mb
+  memcap: 128mb
   hash-size: 65536
-  #prealloc: 10000
-  prealloc: 1000000
+  prealloc: 10000
   emergency-recovery: 30
   #managers: 1 # default to one flow manager
   #recyclers: 1 # default to one flow recycler thread
@@ -1346,8 +1341,8 @@ stream:
   max-synack-queued: 1000
   prealloc-sessions: 2048
   async-oneside: false
-  #bypass: no
-  bypass: yes
+  drop-invalid: yes
+  bypass: no
   reassembly:
     memcap: 256mb
     depth: 1mb                  # reassemble 1mb into a stream
@@ -1356,6 +1351,7 @@ stream:
     randomize-chunk-size: yes
     randomize-chunk-range: 10
     #raw: yes
+    raw: yes
     segment-prealloc: 2048
     #check-overlap-different-data: true
 
@@ -1427,7 +1423,8 @@ detect:
     #toserver-groups: 25
     toserver-groups: $CUSTOM_VALUE
   sgh-mpm-context: auto
-  inspection-recursion-limit: 3000
+  #inspection-recursion-limit: 3000
+  inspection-recursion-limit: 9000
   # If set to yes, the loading of signatures will be made after the capture
   # is started. This will limit the downtime in IPS mode.
   delayed-detect: yes
@@ -1444,7 +1441,9 @@ detect:
   # rules.
   grouping:
     #tcp-whitelist: 53, 80, 139, 443, 445, 1433, 3306, 3389, 6666, 6667, 8080
+    tcp-whitelist: 53, 80, 139, 443, 445, 853, 1433, 3306, 3389, 6666, 6667, 6697, 7070, 8080, 8443
     #udp-whitelist: 53, 135, 5060
+    udp-whitelist: 53, 135, 853, 5060, 8443
 
   profiling:
     # Log the rules that made it past the prefilter stage, per packet
@@ -1530,7 +1529,8 @@ threading:
   # thread being created. Regardless of the setting at a minimum 1 detect
   # thread will always be created.
   #
-  detect-thread-ratio: 1.0
+  #detect-thread-ratio: 1.0
+  detect-thread-ratio: 1.5
 
 # Luajit has a strange memory requirement, it's 'states' need to be in the
 # first 2G of the process' memory.
