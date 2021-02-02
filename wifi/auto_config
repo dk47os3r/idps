@@ -1165,8 +1165,7 @@ host-os-policy:
 # Defrag settings:
 
 defrag:
-  #memcap: 32mb
-  memcap: 512mb
+  memcap: 32mb
   hash-size: 65536
   trackers: 65535 # number of defragmented flows to follow
   max-frags: 65535 # number of fragments to keep (higher than trackers)
