@@ -864,7 +864,6 @@ af-packet:
     # Use tpacket_v3 capture mode, only active if use-mmap is true
     # Don't use it in IPS or TAP mode as it causes severe latency
     #tpacket-v3: yes
-    tpacket-v3: yes
     # Ring size will be computed with respect to max_pending_packets and number
     # of threads. You can set manually the ring size in number of packets by setting
     # the following value. If you are using flow cluster-type and have really network
@@ -923,7 +922,6 @@ af-packet:
     use-mmap: yes
     ring-size: $RING_SIZE
     #mmap-locked: yes
-    tpacket-v3: yes
 
   # Put default values here. These will be used for an interface that is not
   # in the list above.
@@ -1018,6 +1016,7 @@ app-layer:
       # For best performance, select 'bypass'.
       #
       #encryption-handling: default
+      encryption-handling: bypass
 
     dcerpc:
       enabled: yes
@@ -1580,7 +1579,8 @@ stream:
   prealloc-sessions: 2048
   async-oneside: false
   drop-invalid: yes
-  bypass: no
+  #bypass: no
+  bypass: yes
   reassembly:
     memcap: 256mb
     depth: 1mb                  # reassemble 1mb into a stream
@@ -2309,6 +2309,17 @@ sudo cat >>/etc/logrotate.d/suricata <<END
 }
 
 /var/log/suricata/ransomware_urls_alert.log {
+  daily
+  rotate 30
+  olddir /var/log/suricata/StatsByDate/
+  compress
+  missingok
+  notifempty
+  dateext
+  copytruncate
+}
+
+/var/log/suricata/phishing_urls.log {
   daily
   rotate 30
   olddir /var/log/suricata/StatsByDate/
