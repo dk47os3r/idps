@@ -2335,6 +2335,16 @@ sudo cat >>/etc/logrotate.d/suricata <<END
   copytruncate
 }
 
+/var/log/suricata/hacked-domains_urls.log {
+  daily
+  rotate 30
+  olddir /var/log/suricata/StatsByDate/
+  compress
+  missingok
+  notifempty
+  dateext
+  copytruncate
+}
 END
 
 ####################
