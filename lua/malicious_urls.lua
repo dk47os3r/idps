@@ -32,6 +32,14 @@ function match(args)
         -- get host name
         local http_host_hdr = HttpGetRequestHost()
         local http_uri = HttpGetRequestUriRaw()
+
+	if http_host_hdr == nil then
+		http_host_hdr = ""
+	end
+	if http_uri == nil then
+		http_uri = ""
+	end
+
         -- combine together
         http_host = http_host_hdr .. http_uri
 
