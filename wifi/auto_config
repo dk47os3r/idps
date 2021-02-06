@@ -1343,7 +1343,7 @@ stream:
   async-oneside: false
   drop-invalid: yes
   #bypass: no
-  bypass: no
+  bypass: yes
   reassembly:
     memcap: 256mb
     depth: 1mb                  # reassemble 1mb into a stream
@@ -1530,8 +1530,7 @@ threading:
   # thread being created. Regardless of the setting at a minimum 1 detect
   # thread will always be created.
   #
-  #detect-thread-ratio: 1.0
-  detect-thread-ratio: 1.5
+  detect-thread-ratio: 1.0
 
 # Luajit has a strange memory requirement, it's 'states' need to be in the
 # first 2G of the process' memory.
