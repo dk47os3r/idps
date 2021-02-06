@@ -12,6 +12,10 @@
 		         as it is blocked by firefox before suricata processing.
 ]]
 
+-- open files
+url_file = io.open("/var/lib/suricata/rules/ransomwaretracker.url", "r")
+access_file = io.open("/var/log/suricata/ransomware_urls.log", "a")
+
 -- this gets called during rule parsing
 function init(args)
 	local needs = {}
@@ -25,16 +29,19 @@ function match(args)
 	-- verbose = 0 (false), 1 (true, default)
 	local verbose = 0
 
-	-- get host name
-	http_host = HttpGetRequestHost()
-	
+        -- get host name
+        http_host = HttpGetRequestHost()
+        http_uri = HttpGetRequestUriRaw()
+        -- combine together
+        http_host = http_host .. http_uri
+
 	if http_host == nil then
 		http_host = ""
 	end
 
 	-- open files
-  	local url_file = io.open("/var/lib/suricata/rules/ransomwaretracker.url", "r")
-	local access_file = io.open("/var/log/suricata/ransomware_urls.log", "a")
+  	-- local url_file = io.open("/var/lib/suricata/rules/ransomwaretracker.url", "r")
+	-- local access_file = io.open("/var/log/suricata/ransomware_urls.log", "a")
 
 	-- compare host name
 	for line in url_file:lines() do
@@ -43,8 +50,8 @@ function match(args)
 				access_file:write(os.date("[%x - %X] [**]" .. " [Match] " .. http_host .. " <@> Source : " .. line .. " \n"))
 				url_file:flush()
 				access_file:flush()
-				url_file:close()
-				access_file:close()
+				-- url_file:close()
+				-- access_file:close()
 				return 1
 			else
 				if verbose == 1 then
@@ -55,8 +62,8 @@ function match(args)
 	end
 	url_file:flush()
 	access_file:flush()
-	url_file:close()
-	access_file:close()
+	-- url_file:close()
+	-- access_file:close()
 	return 0
 end	
 

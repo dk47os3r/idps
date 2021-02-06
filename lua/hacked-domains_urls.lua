@@ -1,16 +1,20 @@
 --[[    lua script : hacked-domains_urls.lua
-	purpose    : to check the url is matched in blacklisted CryptXXX Ransomware or not
-	rule       : reject tcp any any -> any any (msg:"CryptXXX Ransomware blacklisted URL"; luajit:cryptxxx_urls.lua; priority:1; sid: 100000000000; rev:1;)
+	purpose    : to check the url is matched in blacklisted or not
+	rule       : reject tcp any any -> any any (msg:"blacklisted URL"; luajit:hacked-domains_urls.lua; priority:1; sid: 100000000000; rev:1;)
 
-	author     : samiux (https://www.infosec-ninjas.com)
+	author     : samiux (https://samiux.github.io)
 	project    : Croissants
 	license    : GPLv3
-	date       : SEP 24, 2018
+	date       : FEB 06, 2021
 
 	Remarks    : (1) https protocol will not be processed.
 		     (2) google safe-browsing blacklisted is also not processed
 		         as it is blocked by firefox before suricata processing.
 ]]
+
+-- open files
+url_file = io.open("/var/lib/suricata/rules/hacked-domains.url", "r")
+access_file = io.open("/var/log/suricata/hacked-domains_urls.log", "a")
 
 -- this gets called during rule parsing
 function init(args)
@@ -33,8 +37,8 @@ function match(args)
 	end
 
 	-- open files
-  	local url_file = io.open("/var/lib/suricata/rules/hacked-domains.url", "r")
-	local access_file = io.open("/var/log/suricata/hacked-domains_urls.log", "a")
+  	-- local url_file = io.open("/var/lib/suricata/rules/hacked-domains.url", "r")
+	-- local access_file = io.open("/var/log/suricata/hacked-domains_urls.log", "a")
 
 	-- compare host name
 	for line in url_file:lines() do
@@ -43,8 +47,8 @@ function match(args)
 				access_file:write(os.date("[%x - %X] [**]" .. " [Match] " .. http_host .. " <@> Source : " .. line .. " \n"))
 				url_file:flush()
 				access_file:flush()
-				url_file:close()
-				access_file:close()
+				-- url_file:close()
+				-- access_file:close()
 				return 1
 			else
 				if verbose == 1 then
@@ -55,8 +59,8 @@ function match(args)
 	end
 	url_file:flush()
 	access_file:flush()
-	url_file:close()
-	access_file:close()
+	-- url_file:close()
+	-- access_file:close()
 	return 0
 end	
 
