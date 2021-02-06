@@ -5,10 +5,10 @@
 
 # reserved for 1010000-1010099
 # disallow ping from internet
-drop icmp $EXTERNAL_NET any -> $HOME_NET any (msg:"ICMP PING"; itype: 8; priority:1; classtype: network-scan; priority:1; sid:1010000; rev:1;)
+drop icmp $EXTERNAL_NET any -> $HOME_NET any (msg:"ICMP PING"; itype: 8; classtype: network-scan; priority:1; sid:1010000; rev:1;)
 
 # Potential Ports Scan
-drop tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"SCAN Potential Ports Scan"; flow:to_server; flags:S,12; window: 1024; priority:1; classtype:attempted-recon; priority:1; sid:1010020; rev:1;)
+drop tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"SCAN Potential Ports Scan"; flow:to_server; flags:S,12; window: 1024; classtype:attempted-recon; priority:1; sid:1010020; rev:1;)
 # general or -sS (SYN scan) as well as -sC (Kali Linux host only) (filtered)
 drop tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"SCAN Potential Ports Scan (Kali host)"; flow:to_server; flags:S,12; window: 1024; priority:1; classtype:attempted-recon; sid:1010021; rev:1;)
 # -sF (FIN scan) (open|filtered)) | VM (open|filtered)
