@@ -30,10 +30,10 @@ function match(args)
 	local verbose = 0
 
         -- get host name
-        local http_host = HttpGetRequestHost()
+        local http_host_hdr = HttpGetRequestHost()
         local http_uri = HttpGetRequestUriRaw()
         -- combine together
-        http_host = http_host .. http_uri
+        http_host = http_host_hdr .. http_uri
 
 	if http_host == nil then
 		http_host = ""
