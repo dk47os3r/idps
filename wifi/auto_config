@@ -1212,8 +1212,7 @@ defrag:
 # in bytes.
 
 flow:
-  #memcap: 128mb
-  memcap: 256mb
+  memcap: 128mb
   hash-size: 65536
   prealloc: 10000
   emergency-recovery: 30
@@ -1341,18 +1340,22 @@ flow-timeouts:
 #
 stream:
   #memcap: 64mb
-  memcap: 128mb
+  memcap: 512mb
   checksum-validation: yes      # reject wrong csums
   inline: auto                  # auto will use inline mode in IPS mode, yes or no set it statically
-  max-synack-queued: 1000
-  prealloc-sessions: 2048
-  async-oneside: false
+  #max-synack-queued: 1000
+  max-synack-queued: 5000
+  #prealloc-sessions: 2048
+  prealloc-sessions: 4096
+  #async-oneside: false
+  async-oneside: true
   drop-invalid: yes
+  midstream: true
   #bypass: no
   bypass: yes
   reassembly:
     #memcap: 256mb
-    memcap: 512mb
+    memcap: 2048mb
     #depth: 1mb                  # reassemble 1mb into a stream
     depth: 4mb                  # reassemble 1mb into a stream
     toserver-chunk-size: 2560
@@ -1361,7 +1364,8 @@ stream:
     randomize-chunk-range: 10
     #raw: yes
     raw: yes
-    segment-prealloc: 2048
+    #segment-prealloc: 2048
+    segment-prealloc: 4096
     #check-overlap-different-data: true
 
 # Host table:
