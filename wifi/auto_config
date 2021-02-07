@@ -1350,7 +1350,6 @@ stream:
   #async-oneside: false
   async-oneside: true
   drop-invalid: yes
-  midstream: true
   #bypass: no
   bypass: yes
   reassembly:
