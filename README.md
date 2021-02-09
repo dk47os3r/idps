@@ -58,7 +58,7 @@ __Croissants is designed and developed by Samiux since 2012.__
 
 ### Software
 
-- Ubuntu Server 20.04.1 LTS (64-bit)  
+- Ubuntu Server 20.04.2 LTS (64-bit)  
 - __netplan__ as default  
 - Support WIFI (for Monitoring Interface only)  
 
@@ -178,15 +178,25 @@ glances
 
 Graphic mode monitoring tool for the performance of Croissants.
 
+__Network based only__
+
 ```bash
 sudo sed -i 's/127\.0\.0\.1/0\.0\.0\.0/' /etc/netdata/netdata.conf
 sudo systemctl restart netdata
 ```
+
+__Network based__
+
 ```bash
 http://[monitoring_ip]:19999
 ```
-
 e.g. http://192.168.20.180:19999
+
+__Host based__
+
+```bash
+http://127.0.0.1:19999
+````
 
 #### 2.3 Suricata Health Check
 
