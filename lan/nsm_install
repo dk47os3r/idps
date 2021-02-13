@@ -854,10 +854,11 @@ af-packet:
     cluster-type: cluster_flow
     # In some fragmentation case, the hash can not be computed. If "defrag" is set
     # to yes, the kernel will do the needed defragmentation before sending the packets.
-    defrag: yes
+    #defrag: yes
+    defrag: $AF_DEFRAG
     # To use the ring feature of AF_PACKET, set 'use-mmap' to yes
     #use-mmap: yes
-    use-mmap: yes
+    use-mmap: $AF_USE_MMAP
     # Lock memory map to avoid it goes to swap. Be careful that over subscribing could lock
     # your system
     #mmap-locked: yes
@@ -870,7 +871,7 @@ af-packet:
     # intensive single-flow you could want to set the ring-size independently of the number
     # of threads:
     #ring-size: 2048
-    ring-size: $RING_SIZE
+    ring-size: $AF_RING_SIZE
     # Block size is used by tpacket_v3 only. It should set to a value high enough to contain
     # a decent number of packets. Size is in bytes so please consider your MTU. It should be
     # a power of 2 and it must be multiple of page size (usually 4096).
@@ -909,18 +910,18 @@ af-packet:
     #  see doc/userguide/capture-hardware/ebpf-xdp.rst for more info.
     copy-mode: ips
     copy-iface: $INF_OUTGOING
-    buffer-size: 1497366528
+    buffer-size: $AF_BUFFER_SIZE
 
   - interface: $INF_OUTGOING
     #threads: auto
     cluster-id: 98
     cluster-type: cluster_flow
-    defrag: yes
+    defrag: $AF_DEFRAG
     copy-mode: ips
     copy-iface: $INF_INCOMING
-    buffer-size: 1497366528
-    use-mmap: yes
-    ring-size: $RING_SIZE
+    buffer-size: $AF_BUFFER_SIZE
+    use-mmap: $AF_USE_MMAP
+    ring-size: $AF_RING_SIZE
     #mmap-locked: yes
 
   # Put default values here. These will be used for an interface that is not
@@ -1016,7 +1017,7 @@ app-layer:
       # For best performance, select 'bypass'.
       #
       #encryption-handling: default
-      encryption-handling: bypass
+      encryption-handling: $ENCRYPT_HANDLING
 
     dcerpc:
       enabled: yes
@@ -1111,9 +1112,9 @@ app-layer:
            # Can be specified in kb, mb, gb.  Just a number indicates
            # it's in bytes.
            #request-body-limit: 100kb
-           request-body-limit: 0
+           request-body-limit: $LIBHTP_REQ_BD_LIMIT
            #response-body-limit: 100kb
-           response-body-limit: 0
+           response-body-limit: $LIBHTP_RES_BD_LIMIT
 
            # inspection limits
            request-body-minimal-inspect-size: 32kb
@@ -1406,13 +1407,14 @@ host-os-policy:
 
 defrag:
   #memcap: 32mb
-  memcap: 64mb
+  memcap: $DEFRAG_MEMCAP
   hash-size: 65536
   trackers: 65535 # number of defragmented flows to follow
   #max-frags: 65535 # number of fragments to keep (higher than trackers)
-  max-frags: 131070 # number of fragments to keep (higher than trackers)
+  max-frags: $DEFRAG_MAX_FRAGS # number of fragments to keep (higher than trackers)
   prealloc: yes
-  timeout: 60
+  #timeout: 60
+  timeout: $DEFRAG_TIMEOUT
 
 # Enable defrag per host settings
 #  host-config:
@@ -1449,7 +1451,8 @@ defrag:
 # in bytes.
 
 flow:
-  memcap: 128mb
+  #memcap: 128mb
+  memcap: $FLOW_MEMCAP
   hash-size: 65536
   prealloc: 10000
   emergency-recovery: 30
@@ -1577,31 +1580,28 @@ flow-timeouts:
 #
 stream:
   #memcap: 64mb
-  memcap: 512mb
+  memcap: $STRAM_MEMCAP
   checksum-validation: yes      # reject wrong csums
   inline: auto                  # auto will use inline mode in IPS mode, yes or no set it statically
-  #max-synack-queued: 1000
-  max-synack-queued: 5000
-  #prealloc-sessions: 2048
-  prealloc-sessions: 4096
+  max-synack-queued: 1000
+  prealloc-sessions: 2048
   #async-oneside: false
-  async-oneside: true
-  drop-invalid: yes
+  async-oneside: $STREAM_ASYNC_ONESIDE
+  drop-invalid: $STREAM_DROP_INVALID
   #bypass: no
-  bypass: yes
+  bypass: $STREAM_BYPASS
   reassembly:
     #memcap: 256mb
-    memcap: 2048mb
+    memcap: $STREAM_REA_MEMCAP
     #depth: 1mb                  # reassemble 1mb into a stream
-    depth: 4mb                  # reassemble 1mb into a stream
+    depth: $STREAM_REA_DEPTH                  # reassemble 1mb into a stream
     toserver-chunk-size: 2560
     toclient-chunk-size: 2560
     randomize-chunk-size: yes
     randomize-chunk-range: 10
     #raw: yes
-    raw: yes
-    #segment-prealloc: 2048
-    segment-prealloc: 4096
+    raw: $STREAM_REA_RAW
+    segment-prealloc: 2048
     #check-overlap-different-data: true
 
 
@@ -1673,8 +1673,7 @@ detect:
     #toserver-groups: 25
     toserver-groups: $CUSTOM_VALUE
   sgh-mpm-context: auto
-  #inspection-recursion-limit: 3000
-  inspection-recursion-limit: 9000
+  inspection-recursion-limit: 3000
   # If set to yes, the loading of signatures will be made after the capture
   # is started. This will limit the downtime in IPS mode.
   delayed-detect: yes
