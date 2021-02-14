@@ -86,8 +86,8 @@ reject smb $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and ext
 # reserved for 1010200-1010299
 
 # malicious domain extension
-reject dns any any -> any any (msg:"Malicious Domain .live Extension"; flow:stateless; dns.query; content:"|03|live"; pcre:/\.live/; nocase; priority:1; classtype:Suspected Phishing and Malicious; sid:1010300; rev:4)
-reject dns any any -> any any (msg:"Malicious Domain .life Extension"; flow:stateless; dns.query; content:"|03|life"; pcre:/\.life/; nocase; priority:1; classtype:Suspected Phishing and Malicious; sid:1010301; rev:4)
-reject dns any any -> any any (msg:"Malicious Domain .online Extension"; flow:stateless; dns.query; content:"|03|online"; pcre:/\.online/; nocase; priority:1; classtype:Suspected Phishing and Malicious; sid:1010302; rev:4)
+reject dns any any -> any any (msg:"Malicious Domain .live Extension"; flow:stateless; dns.query; content:"|03|live"; pcre:/\.live/; nocase; priority:1; classtype:targeted-activity; sid:1010300; rev:5)
+reject dns any any -> any any (msg:"Malicious Domain .life Extension"; flow:stateless; dns.query; content:"|03|life"; pcre:/\.life/; nocase; priority:1; classtype:targeted-activity; sid:1010301; rev:5)
+reject dns any any -> any any (msg:"Malicious Domain .online Extension"; flow:stateless; dns.query; content:"|03|online"; pcre:/\.online/; nocase; priority:1; classtype:targeted-activity; sid:1010302; rev:5)
 
 # next sid:1010303
