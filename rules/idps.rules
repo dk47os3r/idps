@@ -85,3 +85,9 @@ reject smb $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and ext
 
 # reserved for 1010200-1010299
 
+# malicious domain extension
+reject http any any -> any any (msg:"Malicious Domain .live Extension"; flow:stateless; http.header; content:".live"; nocase; priority:1; classtype:Suspected Phishing and Malicious; sid:1010300; rev:1)
+reject http any any -> any any (msg:"Malicious Domain .life Extension"; flow:stateless; http.header; content:".life"; nocase; priority:1; classtype:Suspected Phishing and Malicious; sid:1010301; rev:1)
+reject http any any -> any any (msg:"Malicious Domain .online Extension"; flow:stateless; http.header; content:".online"; nocase; priority:1; classtype:Suspected Phishing and Malicious; sid:1010302; rev:1)
+
+# next sid:1010303
