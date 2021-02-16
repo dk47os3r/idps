@@ -92,6 +92,9 @@ sudo cat >> /usr/bin/nsm_blacklist_md5 <<END
 
 cd /tmp
 
+# update clamav definations
+sudo freshclam
+
 if [[ -s /var/lib/clamav/main.cvd && -s /var/lib/clamav/daily.cvd ]]
 then
         sudo cp /var/lib/clamav/main.cvd /tmp/
