@@ -40,10 +40,6 @@ function match(args)
 		http_host = ""
 	end
 
-	-- open files
-	-- local url_file = io.open("/var/lib/suricata/rules/hacked-domains.url", "r")
-	-- local access_file = io.open("/var/log/suricata/hacked-domains_urls.log", "a")
-
 	-- compare host name
 	for line in url_file_hacked:lines() do
 		if #http_host > 0 then
@@ -51,8 +47,6 @@ function match(args)
 				access_file_hacked:write(os.date("[%x - %X] [**]" .. " [Match] " .. http_host .. " <@> Source : " .. line .. " \n"))
 				url_file_hacked:flush()
 				access_file_hacked:flush()
-				-- url_file:close()
-				-- access_file:close()
 				return 1
 			else
 				if verbose == 1 then
@@ -63,8 +57,6 @@ function match(args)
 	end
 	url_file_hacked:flush()
 	access_file_hacked:flush()
-	-- url_file:close()
-	-- access_file:close()
 	return 0
 end	
 
