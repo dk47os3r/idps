@@ -31,9 +31,9 @@ sudo apt -y autoclean
 sudo apt -y --purge autoremove
 
 # update snap
-echo ""
-echo -e "${GREEN}Updating snap ...${RESET}"
-sudo snap refresh
+#echo ""
+#echo -e "${GREEN}Updating snap ...${RESET}"
+#sudo snap refresh
 
 # update suricata-update
 echo ""
