@@ -16,9 +16,6 @@
 if url_file_phishing == nil then
 	url_file_phishing = io.open("/var/lib/suricata/rules/phishing.url", "r")
 end
-if access_file_phishing == nil then
-	access_file_phishing = io.open("/var/log/suricata/phishing_urls.log", "a")
-end
 
 -- this gets called during rule parsing
 function init(args)
@@ -51,6 +48,9 @@ function match(args)
 		http_host = ""
 	end
 
+	-- open file
+	local access_file_phishing = io.open("/var/log/suricata/phishing_urls.log", "a")
+
 	-- compare host name
 	for line in url_file_phishing:lines() do
 		if #http_host > 0 then
@@ -58,6 +58,7 @@ function match(args)
 				access_file_phishing:write(os.date("[%x - %X] [**]" .. " [Match] " .. http_host .. " <@> Source : " .. line .. " \n"))
 				url_file_phishing:flush()
 				access_file_phishing:flush()
+			        access_file_phishing:close()
 				return 1
 			else
 				if verbose == 1 then
@@ -68,6 +69,7 @@ function match(args)
 	end
 	url_file_phishing:flush()
 	access_file_phishing:flush()
+        access_file_phishing:close()
 	return 0
 end	
 
@@ -75,5 +77,4 @@ function deinit(args)
         url_file_phishing:flush()
         access_file_phishing:flush()
         url_file_phishing:close()
-        access_file_phishing:close()
 end
