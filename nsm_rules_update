@@ -205,7 +205,8 @@ cd ~
 
 # loading rules
 sudo suricata-update
-sudo kill -USR2 $(pidof suricata)
+#sudo kill -USR2 $(pidof suricata)
+sudo suricatasc -c ruleset-reload-nonblocking
 
 # workaround to fix minor bug of suricata for memory leaking on every reload (-USR2)
 sudo sync; sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'
