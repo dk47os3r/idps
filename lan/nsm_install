@@ -2825,6 +2825,7 @@ echo "00 03 * * * /usr/bin/nsm_cleanlogs" | sudo tee -a /tmp/mycron
 echo "00 04 * * * /usr/bin/nsm_blacklist_md5" | sudo tee -a /tmp/mycron
 echo "00 05 * * * /etc/croissants/conf.d/auto_update" | sudo tee -a /tmp/mycron
 echo "00 06 * * * /usr/bin/nsm_rules_update" | sudo tee -a /tmp/mycron
+echo "00 07 * * * /usr/bin/auto_update_ubuntu" | sudo tee -a /tmp/mycron
 echo "*/5 * * * * /etc/network/flush-ip" | sudo tee -a /tmp/mycron
 echo "*/15 * * * * /usr/bin/check_drop" | sudo tee -a /tmp/mycron
 echo "*/30 * * * * /etc/croissants/conf.d/auto_ip_config" | sudo tee -a /tmp/mycron
@@ -2873,11 +2874,13 @@ sudo mv /root/update_ubuntu /usr/bin/
 sudo mv /root/check_drop /usr/bin/
 sudo mv /root/nsm_rules_reload /usr/bin/
 sudo mv /root/10-disable-offloading /usr/lib/networkd-dispatcher/routable.d/
+sudo mv /root/auto_update_ubuntu /usr/bin/
 
 sudo chmod +x /usr/bin/update_ubuntu
 sudo chmod +x /usr/bin/check_drop
 sudo chmod +x /usr/bin/nsm_rules_update
 sudo chmod +x /usr/bin/nsm_rules_reload
+sudo chmod +x /usr/bin/auto_update_ubuntu
 
 sudo chmod +x /usr/bin/nsm_cleanlogs
 sudo chmod +x /etc/network/flush-ip
@@ -2894,10 +2897,10 @@ sudo chmod +x /etc/croissants/conf.d/reset-config
 #################
 # install irc-bot
 #################
-sudo chmod +x /root/irc-bot_install
-sudo chmod +x /root/irc-bot.py
-sudo mv /root/irc-bot.py /etc/croissants/conf.d/
-sudo /root/irc-bot_install
+#sudo chmod +x /root/irc-bot_install
+#sudo chmod +x /root/irc-bot.py
+#sudo mv /root/irc-bot.py /etc/croissants/conf.d/
+#sudo /root/irc-bot_install
 
 #############
 # create logs
